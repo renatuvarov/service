@@ -1,0 +1,63 @@
+.profile,
+.profile-info,
+.ticket-info {
+  width: 90%;
+  margin: 0 auto 50px;
+  box-shadow: 0 1px 4px 0 rgba(32,33,36,0.28);
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.profile-info,
+.ticket-info {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.profile-info_message_link,
+.ticket-info_message_link {
+  color: #0039ff;
+  font-weight: bold;
+}
+
+.profile-item--empty {
+  color: #ff5000;
+}
+
+.profile-title {
+  font-weight: bold;
+}
+
+.profile-btn {
+  display: block;
+  width: 30%;
+  margin: 15px auto 0;
+  padding: 10px;
+  color: #ffffff;
+  background-color: #255e94;
+  cursor: pointer;
+  outline: none;
+  border-radius: 3px;
+  border: none;
+  text-align: center;
+}
+
+.profile-btn:hover {
+  background-color: #2d72b3;
+}
+
+@media (min-width: 700px) {
+  .profile,
+  .profile-info {
+    width: 60%;
+  }
+}
+
+@media (min-width: 1000px) {
+  .profile,
+  .profile-info {
+    width: 50%;
+  }
+}

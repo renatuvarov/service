@@ -1,0 +1,29 @@
+.add_ticket_wrapper {
+  text-align: center;
+}
+
+.add_ticket {
+  display: inline-block;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #2d72b3;
+  min-width: 100px;
+  border-radius: 75px;
+  transition: 0.3s;
+}
+
+.add_ticket:hover {
+  background-color: #308ad2;
+}
+
+.admin-info {
+  width: 90%;
+  margin: 30px auto 20px;
+  box-shadow: 0 1px 4px 0 rgba(32,33,36,0.28);
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  display: block;
+}

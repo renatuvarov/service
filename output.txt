@@ -1,0 +1,208 @@
+
+   Illuminate\Database\QueryException  : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'service.tickets' doesn't exist (SQL: select `id` from `tickets` where `date` < 2019:10:17)
+
+  at /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:665
+    661|         // If an exception occurs when attempting to run a query, we'll format the error
+    662|         // message to include the bindings with SQL, which will make this exception a
+    663|         // lot more helpful to the developer instead of just the database's errors.
+    664|         catch (Exception $e) {
+  > 665|             throw new QueryException(
+    666|                 $query, $this->prepareBindings($bindings), $e
+    667|             );
+    668|         }
+    669|
+
+  Exception trace:
+
+  1   PDOException::("SQLSTATE[42S02]: Base table or view not found: 1146 Table 'service.tickets' doesn't exist")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  2   PDO::prepare("select `id` from `tickets` where `date` < ?")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  Please use the argument -v to see more details.
+
+   Illuminate\Database\QueryException  : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'service.tickets' doesn't exist (SQL: select `id` from `tickets` where `date` < 2019:10:17)
+
+  at /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:665
+    661|         // If an exception occurs when attempting to run a query, we'll format the error
+    662|         // message to include the bindings with SQL, which will make this exception a
+    663|         // lot more helpful to the developer instead of just the database's errors.
+    664|         catch (Exception $e) {
+  > 665|             throw new QueryException(
+    666|                 $query, $this->prepareBindings($bindings), $e
+    667|             );
+    668|         }
+    669|
+
+  Exception trace:
+
+  1   PDOException::("SQLSTATE[42S02]: Base table or view not found: 1146 Table 'service.tickets' doesn't exist")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  2   PDO::prepare("select `id` from `tickets` where `date` < ?")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  Please use the argument -v to see more details.
+
+   Illuminate\Database\QueryException  : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'service.tickets' doesn't exist (SQL: select `id` from `tickets` where `date` < 2019:10:17)
+
+  at /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:665
+    661|         // If an exception occurs when attempting to run a query, we'll format the error
+    662|         // message to include the bindings with SQL, which will make this exception a
+    663|         // lot more helpful to the developer instead of just the database's errors.
+    664|         catch (Exception $e) {
+  > 665|             throw new QueryException(
+    666|                 $query, $this->prepareBindings($bindings), $e
+    667|             );
+    668|         }
+    669|
+
+  Exception trace:
+
+  1   PDOException::("SQLSTATE[42S02]: Base table or view not found: 1146 Table 'service.tickets' doesn't exist")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  2   PDO::prepare("select `id` from `tickets` where `date` < ?")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  Please use the argument -v to see more details.
+
+   Illuminate\Database\QueryException  : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'service.tickets' doesn't exist (SQL: select `id` from `tickets` where `date` < 2019:10:17)
+
+  at /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:665
+    661|         // If an exception occurs when attempting to run a query, we'll format the error
+    662|         // message to include the bindings with SQL, which will make this exception a
+    663|         // lot more helpful to the developer instead of just the database's errors.
+    664|         catch (Exception $e) {
+  > 665|             throw new QueryException(
+    666|                 $query, $this->prepareBindings($bindings), $e
+    667|             );
+    668|         }
+    669|
+
+  Exception trace:
+
+  1   PDOException::("SQLSTATE[42S02]: Base table or view not found: 1146 Table 'service.tickets' doesn't exist")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  2   PDO::prepare("select `id` from `tickets` where `date` < ?")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  Please use the argument -v to see more details.
+
+   Illuminate\Database\QueryException  : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'service.tickets' doesn't exist (SQL: select `id` from `tickets` where `date` < 2019:10:17)
+
+  at /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:665
+    661|         // If an exception occurs when attempting to run a query, we'll format the error
+    662|         // message to include the bindings with SQL, which will make this exception a
+    663|         // lot more helpful to the developer instead of just the database's errors.
+    664|         catch (Exception $e) {
+  > 665|             throw new QueryException(
+    666|                 $query, $this->prepareBindings($bindings), $e
+    667|             );
+    668|         }
+    669|
+
+  Exception trace:
+
+  1   PDOException::("SQLSTATE[42S02]: Base table or view not found: 1146 Table 'service.tickets' doesn't exist")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  2   PDO::prepare("select `id` from `tickets` where `date` < ?")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  Please use the argument -v to see more details.
+17171717171717171717171717171717171717171717
+   Illuminate\Database\QueryException  : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'homestead.tickets' doesn't exist (SQL: select `id` from `tickets` where `date` < 2019:10:17)
+
+  at /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:665
+    661|         // If an exception occurs when attempting to run a query, we'll format the error
+    662|         // message to include the bindings with SQL, which will make this exception a
+    663|         // lot more helpful to the developer instead of just the database's errors.
+    664|         catch (Exception $e) {
+  > 665|             throw new QueryException(
+    666|                 $query, $this->prepareBindings($bindings), $e
+    667|             );
+    668|         }
+    669|
+
+  Exception trace:
+
+  1   PDOException::("SQLSTATE[42S02]: Base table or view not found: 1146 Table 'homestead.tickets' doesn't exist")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  2   PDO::prepare("select `id` from `tickets` where `date` < ?")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  Please use the argument -v to see more details.
+
+   Illuminate\Database\QueryException  : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'homestead.tickets' doesn't exist (SQL: select `id` from `tickets` where `date` < 2019:10:17)
+
+  at /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:665
+    661|         // If an exception occurs when attempting to run a query, we'll format the error
+    662|         // message to include the bindings with SQL, which will make this exception a
+    663|         // lot more helpful to the developer instead of just the database's errors.
+    664|         catch (Exception $e) {
+  > 665|             throw new QueryException(
+    666|                 $query, $this->prepareBindings($bindings), $e
+    667|             );
+    668|         }
+    669|
+
+  Exception trace:
+
+  1   PDOException::("SQLSTATE[42S02]: Base table or view not found: 1146 Table 'homestead.tickets' doesn't exist")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  2   PDO::prepare("select `id` from `tickets` where `date` < ?")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  Please use the argument -v to see more details.
+
+   Illuminate\Database\QueryException  : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'homestead.tickets' doesn't exist (SQL: select `id` from `tickets` where `date` < 2019:10:17)
+
+  at /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:665
+    661|         // If an exception occurs when attempting to run a query, we'll format the error
+    662|         // message to include the bindings with SQL, which will make this exception a
+    663|         // lot more helpful to the developer instead of just the database's errors.
+    664|         catch (Exception $e) {
+  > 665|             throw new QueryException(
+    666|                 $query, $this->prepareBindings($bindings), $e
+    667|             );
+    668|         }
+    669|
+
+  Exception trace:
+
+  1   PDOException::("SQLSTATE[42S02]: Base table or view not found: 1146 Table 'homestead.tickets' doesn't exist")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  2   PDO::prepare("select `id` from `tickets` where `date` < ?")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  Please use the argument -v to see more details.
+
+   Illuminate\Database\QueryException  : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'homestead.tickets' doesn't exist (SQL: select `id` from `tickets` where `date` < 2019:10:17)
+
+  at /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:665
+    661|         // If an exception occurs when attempting to run a query, we'll format the error
+    662|         // message to include the bindings with SQL, which will make this exception a
+    663|         // lot more helpful to the developer instead of just the database's errors.
+    664|         catch (Exception $e) {
+  > 665|             throw new QueryException(
+    666|                 $query, $this->prepareBindings($bindings), $e
+    667|             );
+    668|         }
+    669|
+
+  Exception trace:
+
+  1   PDOException::("SQLSTATE[42S02]: Base table or view not found: 1146 Table 'homestead.tickets' doesn't exist")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  2   PDO::prepare("select `id` from `tickets` where `date` < ?")
+      /home/vagrant/service/vendor/laravel/framework/src/Illuminate/Database/Connection.php:327
+
+  Please use the argument -v to see more details.
+17171717171717171717171717171717

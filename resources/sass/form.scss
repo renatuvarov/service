@@ -1,0 +1,76 @@
+.form-input_group {
+  width: 90%;
+  margin: 0 auto;
+  min-height: 100px;
+  position: relative;
+}
+
+.is-invalid input {
+  color: $isInvalid;
+}
+
+.form-label {
+  display: block;
+  width: 100%;
+  font-size: 25px;
+}
+
+.form-input {
+  display: block;
+  padding: 15px;
+  border-radius: 75px;
+  border: 1px solid #dfe1e5;
+  outline: none;
+  width: 100%;
+  max-width: 100%;
+}
+
+.form-input:hover,
+.form-input:focus {
+  border: 1px solid #dfe1e5;
+  box-shadow: 0 1px 6px 0 rgba(32,33,36,0.28);
+}
+
+.form-error_message {
+  color: $isInvalid;
+}
+
+.js-form-city_list {
+  display: none;
+  padding: 15px 25px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #dfe1e5;
+  box-shadow: 0 1px 6px 0 rgba(32,33,36,0.28);
+  position: absolute;
+  top: 60px;
+  background-color: #fff;
+  z-index: 100;
+}
+
+.form-city_item {
+  margin-bottom: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bolder;
+  padding-left: 20px;
+  transition: 0.3s;
+}
+
+.form-city_item:hover {
+  background-color: #2d72b3;
+  color: #ffffff;
+}
+
+.js-form-city_list--active {
+  display: block;
+}
+
+p.form-input {
+  margin-top: 0;
+}
+
+
+
+

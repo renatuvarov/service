@@ -1,0 +1,127 @@
+.table {
+  table-layout: fixed;
+  width: 100%;
+  border-spacing: 0 20px;
+}
+
+.table-wrapper {
+  width: 100%;
+}
+
+.table-head_row th,
+tfoot td {
+  border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  padding: 15px 0;
+  background-color: #fff;
+}
+
+tfoot td {
+  text-align: center;
+  font-weight: bold;
+}
+
+.table-body td {
+  text-align: center;
+  border-right: 1px solid #dddddd;
+  padding: 30px 0;
+  background-color: #fff;
+  font-size: 16px;
+}
+
+.table-body tr {
+  box-shadow: 0 1px 6px 0 rgba(32,33,36,0.28);
+}
+
+.table-body td:last-child {
+  border-right: none;
+}
+
+.table-show, 
+.table-edit,
+.table-remove {
+  width: 80%;
+  padding: 10px 0;
+  margin: 0 auto;
+  display: block;
+  color: #fff;
+  border-radius: 3px;
+  transition: 0.3s;
+  cursor: pointer;
+  border: none;
+}
+
+.table-show {
+  background-color: #308ad2;
+  &:hover {
+    background-color: #29a5e9;
+  }
+}
+
+.table-edit {
+  background-color: #00c12c;
+  &:hover {
+    background-color: #00df2e;
+  }
+}
+
+.table-remove {
+  background-color: #ff6e3e;
+  &:hover {
+    background-color: #ff8350;
+  }
+}
+
+.table-admin th:last-child,
+.table-admin tfoot td:last-child {
+  background-color: #e2e2e2;
+}
+
+@media (max-width: 1000px) {
+  .table-body td {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 860px) {
+  thead, tfoot {
+    display: none;
+  }
+
+  .table-body, .table-body tr {
+    border-radius: 5px;
+  }
+
+  .table-body td:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  .table-body td:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  .table-body td {
+    padding: 15px;
+    display: block;
+    text-align: right;
+    font-size: 18px;
+    border-right: none;
+    border-bottom: 1px solid #dddddd;
+  }
+
+  table td:before {
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .table-show,
+  .table-edit,
+  .table-remove {
+    text-align: center;
+    width: 80%;
+  }
+}

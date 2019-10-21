@@ -1,0 +1,221 @@
+.calendar {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 10000;
+}
+
+.calendar--active {
+  display: block;
+}
+
+.calendar-body {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 5px;
+  padding-bottom: 40px;
+}
+
+.calendar-header {
+  font-size: 40px;
+  text-align: center;
+}
+
+.calendar-week,
+.calendar-month {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 10px;
+  font-weight: bold;
+}
+
+.calendar-month {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #cdcdcd;
+}
+
+.calendar-day {
+  width: 14.2857%;
+  text-align: center;
+}
+
+.calendar-day:nth-child(6),
+.calendar-day:nth-child(7) {
+  color: #ea0000;
+}
+
+.calendar-select {
+  display: inline-block;
+  padding: 5px;
+  min-width: 30px;
+  margin: 0 auto;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  font-weight: inherit;
+  transition: 0.3s;
+  outline: none;
+
+  &.calendar-inactive,
+  &.calendar-next {
+    opacity: 0.4;
+    font-weight: lighter;
+  }
+}
+
+.calendar-day:hover .calendar-select,
+.calendar-selected {
+  background-color: #0039ff;
+  color: #ffffff;
+}
+
+.calendar-day:hover .calendar-inactive {
+  background-color: transparent;
+  color: #000;
+}
+
+.calendar-day:hover:nth-child(6) .calendar-inactive,
+.calendar-day:hover:nth-child(7) .calendar-inactive {
+  color: #ea0000;
+}
+
+.calendar-month_name_list {
+  position: relative;
+}
+
+.calendar-select_month_btn {
+  position: absolute;
+  top: 50%;
+  background-color: transparent;
+  width: 60px;
+  height: 60px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: 0.3s;
+  opacity: 0.7;
+  border: none;
+  outline: none;
+}
+
+.calendar-select_month_btn:hover {
+  opacity: 1;
+}
+
+.calendar-select_month_btn--prev {
+  left: 15%;
+}
+
+.calendar-select_month_btn--next {
+  right: 15%;
+}
+
+.calendar-select_month_btn--prev:after,
+.calendar-select_month_btn--prev:before,
+.calendar-select_month_btn--next:after,
+.calendar-select_month_btn--next:before {
+  content: '';
+  position: absolute;
+  background-color: #000000;
+  width: 30px;
+  height: 3px;
+}
+
+.calendar-select_month_btn--prev:after,
+.calendar-select_month_btn--next:before {
+  transform: rotate(-45deg);
+}
+
+.calendar-select_month_btn--prev:before,
+.calendar-select_month_btn--next:after {
+  transform: rotate(45deg);
+}
+
+.calendar-select_month_btn--prev:before {
+  top: 37px;
+  left: 13px;
+}
+
+.calendar-select_month_btn--prev:after {
+  left: 13px;
+  top: 17px;
+}
+
+.calendar-select_month_btn--next:before {
+  top: 37px;
+  right: 13px;
+}
+
+.calendar-select_month_btn--next:after {
+  right: 13px;
+  top: 17px;
+}
+
+.calendar-header,
+.calendar-month_item {
+  display: none;
+}
+
+.calendar-header--active,
+.calendar-month_item--active {
+  display: block;
+}
+
+.calendar-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  border: none;
+  transition: 0.3s;
+  opacity: 0.7;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.calendar-close:hover {
+  opacity: 1;
+}
+
+.calendar-close:after,
+.calendar-close:before {
+  position: absolute;
+  right: 5px;
+  content: '';
+  background-color: #000000;
+  width: 30px;
+  height: 3px;
+  transform: rotate(45deg);
+}
+
+.calendar-close:after {
+  transform: rotate(-45deg);
+}
+
+.calendar-set_day {
+  display: block;
+  width: 30%;
+  margin: 15px auto 0;
+  padding: 10px;
+  color: #ffffff;
+  background-color: #255e94;
+  cursor: pointer;
+  outline: none;
+  border-radius: 3px;
+  border: none;
+}
+
+.calendar-set_day:hover {
+  background-color: #2d72b3;
+}
+

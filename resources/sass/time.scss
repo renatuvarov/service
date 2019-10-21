@@ -1,0 +1,158 @@
+.time {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 10000;
+}
+
+.time--active {
+  display: block;
+}
+
+.time-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 30px 40px;
+}
+
+.time .select_header {
+  margin: 0 0 50px;
+}
+
+.time-input_group {
+  margin: 0 15px;
+  position: relative;
+}
+
+.time-separator {
+  font-size: 50px;
+  text-align: center;
+  margin: 15px 15px 0;
+}
+
+.time-input_wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 70px;
+}
+
+.time-input {
+  width: 100px;
+  height: 100px;
+  border-radius: 3px;
+  border: 1px solid #dfe1e5;
+  font-size: 50px;
+  padding: 10px;
+  color: #000;
+  text-align: center;
+}
+
+.time-input--error {
+  border-color: #ff4800;
+}
+
+.time-set_time {
+  display: block;
+  width: 30%;
+  margin: 15px auto 0;
+  padding: 10px;
+  color: #ffffff;
+  background-color: #255e94;
+  cursor: pointer;
+  outline: none;
+  border-radius: 3px;
+  border: none;
+}
+
+.time-set_time:hover {
+  background-color: #2d72b3;
+}
+
+.time-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  border: none;
+  transition: 0.3s;
+  opacity: 0.7;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.time-close:hover {
+  opacity: 1;
+}
+
+.time-close:after,
+.time-close:before {
+  position: absolute;
+  right: 5px;
+  content: '';
+  background-color: #000000;
+  width: 30px;
+  height: 3px;
+  transform: rotate(45deg);
+}
+
+.time-close:after {
+  transform: rotate(-45deg);
+}
+
+.time-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: transparent;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  opacity: 0.7;
+  border: none;
+  outline: none;
+}
+
+.time-btn:hover {
+  opacity: 1;
+}
+
+.time-btn_up {
+  top: -45px;
+}
+
+.time-btn_down {
+  bottom: -45px;
+  transform: rotate(180deg) translateX(56%);
+}
+
+.time-btn:after,
+.time-btn:before {
+  content: '';
+  position: absolute;
+  background-color: #000000;
+  width: 25px;
+  height: 3px;
+}
+
+.time-btn_up:after,
+.time-btn_down:after {
+  transform: rotate(-45deg);
+  left: 3px;
+}
+
+.time-btn_up:before,
+.time-btn_down:before {
+  transform: rotate(45deg);
+  left: 19px;
+}
