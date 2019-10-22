@@ -27,39 +27,57 @@
     </table>
     <h2 class="select_header">Пассажиры</h2>
 
-    {{ $users->appends(request()->input())->links('vendor.pagination.default') }}
+    @if($users->count() > 0)
 
-    <table class="table">
-        <thead class="table-head">
-        <tr class="table-head_row">
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Отчество</th>
-            <th>Телефон</th>
-            <th>Email</th>
-        </tr>
-        </thead>
-        <tbody class="table-body">
-        @foreach($users as $user)
-            <tr>
-                <td data-label="Фамилия">{{ $user->pivot->surname }}</td>
-                <td data-label="Имя">{{ $user->pivot->name }}</td>
-                <td data-label="Отчество">{{ $user->pivot->patronymic }}</td>
-                <td><a class="table-edit" href="tel:{{ $user->pivot->phone }}">{{ $user->pivot->phone }}</a></td>
-                <td><a class="table-edit" href="{{ route('admin.email', ['id' => $user->id]) }}">{{ $user->email }}</a></td>
+        {{ $users->appends(request()->input())->links('vendor.pagination.default') }}
+
+        <div class="admin-tickets_email_wrapper">
+            <a href="{{ route('admin.email.new', ['ticket' => $ticket->id]) }}" class="admin-tickets_email">Сообщение для всех</a>
+        </div>
+
+        <table class="table">
+            <thead class="table-head">
+            <tr class="table-head_row">
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Телефон</th>
+                <th>Email</th>
             </tr>
-        @endforeach
-        </tbody>
-        <tfoot>
-        <tr>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Отчество</th>
-            <th>Телефон</th>
-            <th>Email</th>
-        </tr>
-        </tfoot>
-    </table>
+            </thead>
+            <tbody class="table-body">
+            @foreach($users as $user)
+                <tr>
+                    <td data-label="Фамилия">{{ $user->pivot->surname }}</td>
+                    <td data-label="Имя">{{ $user->pivot->name }}</td>
+                    <td data-label="Отчество">{{ $user->pivot->patronymic }}</td>
+                    <td>
+                        <a class="table-edit" href="tel:{{ $user->pivot->phone }}">{{ $user->pivot->phone }}</a>
+                    </td>
+                    <td>
+                        <a class="table-edit" href="{{ route('admin.email.new', ['ticket' => $ticket, 'id' => $user->id]) }}">{{ $user->email }}</a>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Телефон</th>
+                <th>Email</th>
+            </tr>
+            </tfoot>
+        </table>
 
-    {{ $users->appends(request()->input())->links('vendor.pagination.default') }}
+        <div class="admin-tickets_email_wrapper">
+            <a href="{{ route('admin.email.new', ['ticket' => $ticket->id]) }}" class="admin-tickets_email">Сообщение для всех</a>
+        </div>
+
+        {{ $users->appends(request()->input())->links('vendor.pagination.default') }}
+
+    @else
+        <p class="ticket-info">На этом маршруте пока никого нет</p>
+    @endif
 @endsection

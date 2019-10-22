@@ -38,12 +38,12 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td>Откуда</td>
-                        <td>Куда</td>
-                        <td>Дата</td>
-                        <td>Время</td>
-                        <td>Места</td>
-                        <td></td>
+                        <th>Откуда</th>
+                        <th>Куда</th>
+                        <th>Дата</th>
+                        <th>Время</th>
+                        <th>Места</th>
+                        <th></th>
                     </tr>
                     </tfoot>
                 </table>

@@ -27,3 +27,35 @@
   font-weight: bold;
   display: block;
 }
+
+.admin-tickets_email_wrapper {
+  text-align: center;
+}
+
+.admin-tickets_email {
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  border-radius: 75px;
+  background-color: #00c12c;
+  transition: 0.3s;
+  color: #ffffff;
+  padding: 10px;
+  text-align: center;
+  margin: 0 auto;
+  &:hover {
+    background-color: #00df2e;
+  }
+}
+
+@media (min-width: 700px) {
+  .admin-info {
+    width: 60%;
+  }
+}
+
+@media (min-width: 1000px) {
+  .admin-info {
+    width: 50%;
+  }
+}

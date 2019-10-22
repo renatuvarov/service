@@ -50,14 +50,16 @@
 
 @media (min-width: 700px) {
   .profile,
-  .profile-info {
+  .profile-info,
+  .ticket-info {
     width: 60%;
   }
 }
 
 @media (min-width: 1000px) {
   .profile,
-  .profile-info {
+  .profile-info,
+  .ticket-info {
     width: 50%;
   }
 }

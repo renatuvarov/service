@@ -40,12 +40,12 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td>Откуда</td>
-                        <td>Куда</td>
-                        <td>Дата</td>
-                        <td>Время</td>
-                        <td>Места</td>
-                        <td colspan="3">Управление</td>
+                        <th>Откуда</th>
+                        <th>Куда</th>
+                        <th>Дата</th>
+                        <th>Время</th>
+                        <th>Места</th>
+                        <th colspan="3">Управление</th>
                     </tr>
                     </tfoot>
                 </table>

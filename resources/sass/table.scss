@@ -9,14 +9,14 @@
 }
 
 .table-head_row th,
-tfoot td {
+tfoot th {
   border-top: 1px solid #dddddd;
   border-bottom: 1px solid #dddddd;
   padding: 15px 0;
   background-color: #fff;
 }
 
-tfoot td {
+tfoot th {
   text-align: center;
   font-weight: bold;
 }
@@ -73,7 +73,7 @@ tfoot td {
 }
 
 .table-admin th:last-child,
-.table-admin tfoot td:last-child {
+.table-admin tfoot th:last-child {
   background-color: #e2e2e2;
 }
 

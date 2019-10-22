@@ -476,14 +476,14 @@ p.form-input {
 }
 
 .table-head_row th,
-tfoot td {
+tfoot th {
   border-top: 1px solid #dddddd;
   border-bottom: 1px solid #dddddd;
   padding: 15px 0;
   background-color: #fff;
 }
 
-tfoot td {
+tfoot th {
   text-align: center;
   font-weight: bold;
 }
@@ -543,7 +543,7 @@ tfoot td {
 }
 
 .table-admin th:last-child,
-.table-admin tfoot td:last-child {
+.table-admin tfoot th:last-child {
   background-color: #e2e2e2;
 }
 
@@ -626,6 +626,39 @@ tfoot td {
   font-size: 30px;
   font-weight: bold;
   display: block;
+}
+
+.admin-tickets_email_wrapper {
+  text-align: center;
+}
+
+.admin-tickets_email {
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  border-radius: 75px;
+  background-color: #00c12c;
+  transition: 0.3s;
+  color: #ffffff;
+  padding: 10px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.admin-tickets_email:hover {
+  background-color: #00df2e;
+}
+
+@media (min-width: 700px) {
+  .admin-info {
+    width: 60%;
+  }
+}
+
+@media (min-width: 1000px) {
+  .admin-info {
+    width: 50%;
+  }
 }
 
 .time {
@@ -839,14 +872,16 @@ tfoot td {
 
 @media (min-width: 700px) {
   .profile,
-  .profile-info {
+  .profile-info,
+  .ticket-info {
     width: 60%;
   }
 }
 
 @media (min-width: 1000px) {
   .profile,
-  .profile-info {
+  .profile-info,
+  .ticket-info {
     width: 50%;
   }
 }

@@ -75,6 +75,7 @@ Route::group([
     Route::resource('tickets', 'TicketsController');
     Route::get('tickets/remove/{ticket}', 'TicketsController@remove')->name('tickets.remove');
     Route::resource('users', 'UsersController')->except(['edit', 'update']);
-    Route::get('/email/{id}', 'EmailController@sendEmail')->name('email');
+    Route::get('/email/{ticket}/{id?}', 'EmailController@newEmail')->name('email.new');
+    Route::post('/email/{ticket}/{id?}', 'EmailController@sendEmail')->name('email.send');
 });
 
