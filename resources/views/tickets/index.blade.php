@@ -22,8 +22,8 @@
                     <tbody class="table-body">
                     @foreach($tickets as $ticket)
                         <tr>
-                            <td data-label="Откуда">{{ $ticket->cities->first(function($item) use ($ticket) {return $item->id == $ticket->departure_point;})->city_name }}</td>
-                            <td data-label="Куда">{{ $ticket->cities->first(function($item) use ($ticket) {return $item->id == $ticket->arrival_point;})->city_name }}</td>
+                            <td data-label="Откуда">{{ $ticket->departurePoint() }}</td>
+                            <td data-label="Куда">{{ $ticket->arrivalPoint() }}</td>
                             <td data-label="Дата">{{ $ticket->date->format('d.m.Y') }}</td>
                             <td data-label="Время">{{ date('H:i', strtotime($ticket->time)) }}</td>
                             <td data-label="Места">{{ $ticket->seat }}</td>
@@ -38,12 +38,12 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td>Откуда</td>
-                        <td>Куда</td>
-                        <td>Дата</td>
-                        <td>Время</td>
-                        <td>Места</td>
-                        <td></td>
+                        <th>Откуда</th>
+                        <th>Куда</th>
+                        <th>Дата</th>
+                        <th>Время</th>
+                        <th>Места</th>
+                        <th></th>
                     </tr>
                     </tfoot>
                 </table>

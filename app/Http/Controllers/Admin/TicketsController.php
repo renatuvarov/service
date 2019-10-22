@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Entity\Ticket;
+use App\Events\TicketDeleted;
+use App\Events\TicketUpdated;
 use App\Http\Requests\CreateTicketRequest;
+use App\Http\Requests\TicketUpdatedRequest;
 use App\Http\Services\DateTimeService;
 use App\Http\Services\FindCitiesService;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -70,21 +72,38 @@ class TicketsController extends Controller
 
     public function edit(Ticket $ticket)
     {
-        //
+        $user = Auth::user();
+        return view('admin.tickets.edit', compact('ticket', 'user'));
     }
 
-    public function update(Request $request, Ticket $ticket)
+    public function update(TicketUpdatedRequest $request)
     {
-        //
+        $ticket = Ticket::with('cities')->where('id', $request->route('ticket'))->first();
+        $oldTime = $ticket->time;
+        $users = $ticket->users()->get();
+
+        $ticket->update([
+            'time' => $request->input('time')
+        ]);
+
+        event(new TicketUpdated($users, $ticket, $oldTime));
+
+        return redirect()->route('admin.tickets.show', ['ticket' => $ticket->id]);
     }
 
-    public function remove(Ticket $ticket)
+    public function destroy($ticket)
     {
+        $ticket = Ticket::with('cities')->where('id', $ticket)->first();
+        $users = $ticket->users()->get();
 
-    }
+        $ticket->delete();
 
-    public function destroy(Ticket $ticket)
-    {
-        //
+        $ticketArray = $ticket->toArray();
+        $ticketArray['departure_point'] = $ticket->departurePoint();
+        $ticketArray['arrival_point'] = $ticket->arrivalPoint();
+
+        event(new TicketDeleted($ticketArray, $users));
+
+        return redirect()->route('admin.main');
     }
 }

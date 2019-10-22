@@ -1,5 +1,7 @@
 @extends('layouts.basic')
 
+@include('delete-ticket.delete-ticket')
+
 @section('content')
     <div class="container">
 
@@ -27,14 +29,14 @@
                     <tbody class="table-body">
                     @foreach($tickets as $ticket)
                         <tr>
-                            <td data-label="Откуда">{{ $ticket->cities->first(function($item) use ($ticket) {return $item->id == $ticket->departure_point;})->city_name }}</td>
-                            <td data-label="Куда">{{ $ticket->cities->first(function($item) use ($ticket) {return $item->id == $ticket->arrival_point;})->city_name }}</td>
+                            <td data-label="Откуда">{{ $ticket->departurePoint() }}</td>
+                            <td data-label="Куда">{{ $ticket->arrivalPoint() }}</td>
                             <td data-label="Дата">{{ $ticket->date->format('d.m.Y') }}</td>
                             <td data-label="Время">{{ date('H:i', strtotime($ticket->time)) }}</td>
                             <td data-label="Места">{{ $ticket->seat }}</td>
                             <td><a class="table-show" href="{{ route('admin.tickets.show', ['ticket' => $ticket->id]) }}">Просмотр</a></td>
                             <td><a class="table-edit" href="{{ route('admin.tickets.edit', ['ticket' => $ticket->id]) }}">Редактировать</a></td>
-                            <td><a class="table-remove" href="{{ route('admin.tickets.remove', ['ticket' => $ticket->id]) }}">Удалить</a></td>
+                            <td><a class="table-remove js-table-remove" data-url="{{ route('admin.tickets.destroy', ['ticket' => $ticket->id]) }}">Удалить</a></td>
                         </tr>
                     @endforeach
                     </tbody>

@@ -45,13 +45,13 @@
                 @enderror
             </div>
             <div class="form-input_group @error('time') is-invalid @enderror">
-                <p class="form-input js-input js-select_time">{{ substr(old('time', '00:00:00'), 0, -3) }}</p>
+                <p class="form-input js-input js-select_time">{{ substr(old('time', date('H:i:s')), 0, -3) }}</p>
                 @error('time')
                     <p class="form-error_message">{{ $message }}</p>
                 @enderror
             </div>
             <input type="hidden"
-                   value="{{ old('time', '00:00:00') }}"
+                   value="{{ old('time', date('H:i:s')) }}"
                    class="js-form-hidden_time"
                    name="time">
             <div class="form-input_group @error('seats') is-invalid @enderror">

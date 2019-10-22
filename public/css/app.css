@@ -886,3 +886,71 @@ tfoot th {
   }
 }
 
+.delete_ticket {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 10000;
+}
+
+.delete_ticket--active {
+  display: block;
+}
+
+.delete_ticket_form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 30px 40px;
+}
+
+.delete_ticket-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  border: none;
+  transition: 0.3s;
+  opacity: 0.7;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.delete_ticket-close:hover {
+  opacity: 1;
+}
+
+.delete_ticket-close:after,
+.delete_ticket-close:before {
+  position: absolute;
+  right: 5px;
+  content: "";
+  background-color: #000000;
+  width: 30px;
+  height: 3px;
+  transform: rotate(45deg);
+}
+
+.delete_ticket-close:after {
+  transform: rotate(-45deg);
+}
+
+.delete_ticket_btn {
+  width: 70%;
+}
+
+.delete_ticket-text {
+  text-align: center;
+  font-size: 25px;
+}
+

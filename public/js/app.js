@@ -1238,6 +1238,32 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
   }
 })();
 
+(function () {
+  var table = document.querySelector('.table');
+
+  if (table) {
+    var popup = document.querySelector('.js-delete_ticket');
+
+    var removeTicket = function removeTicket(e) {
+      if (e.target.classList.contains('js-table-remove')) {
+        var url = e.target.dataset.url;
+        popup.classList.add('delete_ticket--active');
+        popup.querySelector('.js-delete_ticket_form').setAttribute('action', url);
+      }
+    };
+
+    var close = function close(e) {
+      if (e.target.closest('.js-delete_ticket-close') || e.target.classList.contains('js-delete_ticket') || e.key === "Escape" || e.key === "Esc") {
+        popup.classList.remove('delete_ticket--active');
+      }
+    };
+
+    table.addEventListener('click', removeTicket);
+    document.addEventListener('click', close);
+    document.addEventListener('keydown', close);
+  }
+})();
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

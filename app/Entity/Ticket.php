@@ -35,13 +35,17 @@ class Ticket extends Model
         );
     }
 
-    public function getDeparturePoint()
+    public function departurePoint()
     {
-        return City::find($this->departure_point);
+        return $this->cities->first(function($item) {
+            return $item->id == $this->departure_point;
+        })->city_name;
     }
 
-    public function getArrivalPoint()
+    public function arrivalPoint()
     {
-        return City::find($this->arrival_point);
+        return $this->cities->first(function($item) {
+            return $item->id == $this->arrival_point;
+        })->city_name;
     }
 }

@@ -6,9 +6,7 @@ use App\Entity\Ticket;
 use App\Http\Requests\TicketInfoRequest;
 use App\Mail\TicketInfo;
 use App\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class EmailController extends Controller
