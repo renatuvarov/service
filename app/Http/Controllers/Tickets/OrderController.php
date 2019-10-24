@@ -5,8 +5,12 @@ namespace App\Http\Controllers\Tickets;
 use App\Entity\Ticket;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FindTickets;
+use App\Http\Requests\OrderRequest;
 use App\Http\Services\FindCitiesService;
+use App\Jobs\RestoreSeatJob;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 
 class OrderController extends Controller
 {
@@ -41,22 +45,48 @@ class OrderController extends Controller
         return view('tickets.index', compact('user', 'tickets'));
     }
 
-    public function order(Ticket $ticket)
+    public function orderForm(Ticket $ticket)
     {
         if ($ticket->seat === 0) {
             return redirect()->route('tickets.failed');
         }
 
-        $ticket->update([
-            'seat' => $ticket->seat - 1,
-        ]);
-
         $user = Auth::user();
+
+        if (! Redis::exists('order.' . $user->id)) {
+            Redis::set('order.' . $user->id, $ticket->id);
+
+            $ticket->update([
+                'seat' => $ticket->seat - 1,
+            ]);
+
+            $job = (new RestoreSeatJob($ticket, $user))
+                ->delay(Carbon::now()->addSeconds(20));
+
+            $this->dispatch($job);
+        }
+
+        return view('tickets.form', compact('user', 'ticket'));
+
+    }
+
+    public function order(OrderRequest $request)
+    {
+        $user = $request->user();
+
+        if (! Redis::exists('order.' . $user->id)) {
+            return redirect()->route('tickets.failed');
+        }
+
+        $ticket = Ticket::findOrFail($request->route('ticket'));
+
+        Redis::del('order.' . $user->id);
+
         $user->tickets()->attach($ticket, [
-            'name' => $user->name,
-            'surname' => $user->surname,
-            'patronymic' => $user->patronymic,
-            'phone' => $user->phone,
+            'name' => $request->input('name'),
+            'surname' => $request->input('surname'),
+            'patronymic' => $request->input('patronymic'),
+            'phone' => $request->input('phone'),
         ]);
 
         return redirect()->route('user.home');

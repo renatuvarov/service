@@ -28,10 +28,12 @@
                             <td data-label="Время">{{ date('H:i', strtotime($ticket->time)) }}</td>
                             <td data-label="Места">{{ $ticket->seat }}</td>
                             <td>
-                                <form action="{{ route('tickets.order', ['ticket' => $ticket->id]) }}" method="post">
-                                    @csrf
-                                    <button type="submit" class="table-show">Заказать</button>
-                                </form>
+{{--                                <form action="{{ route('tickets.order', ['ticket' => $ticket->id]) }}" method="post">--}}
+{{--                                    @csrf--}}
+{{--                                    <button type="submit" class="table-show">Заказать</button>--}}
+{{--                                </form>--}}
+                                <a href="{{ route('tickets.order.form', ['ticket' => $ticket->id]) }}"
+                                   class="table-show">Заказать</a>
                             </td>
                         </tr>
                     @endforeach

@@ -29,6 +29,9 @@ Route::group([
     'middleware' => ['verified:user.home'],
 ], function () {
     Route::get('/', 'OrderController@index')->name('index');
+    Route::get('/order/{ticket}', 'OrderController@orderForm')
+        ->name('order.form')
+        ->middleware(FilledProfile::class);
     Route::post('/order/{ticket}', 'OrderController@order')
         ->name('order')
         ->middleware(FilledProfile::class);
