@@ -6,6 +6,8 @@
 
         @include('user.info')
 
+        @include('user.profile.remove')
+
         <div class="profile">
             <p class="profile-item{{ is_null($user->email_verified_at) ?  ' profile-item--empty' : '' }}">
                 <span class="profile-title">Статус: </span>
@@ -28,6 +30,9 @@
             </p>
             <div class="profile-btn_wrapper">
                 <a class="profile-btn" href="{{ route('user.profile.edit') }}">Редактировать</a>
+            </div>
+            <div class="profile-btn_wrapper">
+                <a class="delete_profile-btn js-delete_profile-btn" data-url="{{ route('user.profile.destroy') }}">Удалить аккаунт</a>
             </div>
         </div>
     </div>

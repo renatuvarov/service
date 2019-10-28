@@ -26,6 +26,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\TicketDeleted' => [
             'App\Listeners\TicketDeletedNotification',
         ],
+
+        'App\Events\ProfileDeleted' => [
+            'App\Listeners\ProfileDeletedListener',
+        ],
     ];
 
     /**

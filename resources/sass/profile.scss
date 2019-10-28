@@ -30,7 +30,8 @@
   font-weight: bold;
 }
 
-.profile-btn {
+.profile-btn,
+.delete_profile-btn {
   display: block;
   width: 30%;
   margin: 15px auto 0;
@@ -44,8 +45,16 @@
   text-align: center;
 }
 
+.delete_profile-btn {
+  background-color: #e54900;
+}
+
 .profile-btn:hover {
   background-color: #2d72b3;
+}
+
+.delete_profile-btn:hover {
+  background-color: #ff5000;
 }
 
 @media (min-width: 700px) {

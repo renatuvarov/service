@@ -1264,6 +1264,30 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
   }
 })();
 
+(function () {
+  var popup = document.querySelector('.js-delete_user');
+
+  if (popup) {
+    var deleteBtn = document.querySelector('.js-delete_profile-btn');
+
+    var deleteUser = function deleteUser(e) {
+      var url = e.currentTarget.dataset.url;
+      popup.classList.add('delete_user--active');
+      popup.querySelector('.js-delete_user_form').setAttribute('action', url);
+    };
+
+    var close = function close(e) {
+      if (e.target.closest('.js-delete_user-close') || e.target.classList.contains('delete_user') || e.key === "Escape" || e.key === "Esc") {
+        popup.classList.remove('delete_user--active');
+      }
+    };
+
+    deleteBtn.addEventListener('click', deleteUser);
+    document.addEventListener('click', close);
+    document.addEventListener('keydown', close);
+  }
+})();
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

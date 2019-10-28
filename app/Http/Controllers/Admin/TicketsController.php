@@ -80,7 +80,7 @@ class TicketsController extends Controller
     {
         $ticket = Ticket::with('cities')->where('id', $request->route('ticket'))->first();
         $oldTime = $ticket->time;
-        $users = $ticket->users()->get();
+        $users = $ticket->users()->pluck('id')->toArray();
 
         $ticket->update([
             'time' => $request->input('time')
@@ -94,7 +94,7 @@ class TicketsController extends Controller
     public function destroy($ticket)
     {
         $ticket = Ticket::with('cities')->where('id', $ticket)->first();
-        $users = $ticket->users()->get();
+        $users = $ticket->users()->pluck('id')->toArray();
 
         $ticket->delete();
 

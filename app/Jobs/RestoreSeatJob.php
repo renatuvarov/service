@@ -7,7 +7,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redis;
 
 class RestoreSeatJob implements ShouldQueue
@@ -26,14 +25,21 @@ class RestoreSeatJob implements ShouldQueue
     public function handle()
     {
         if ($this->ticket && $this->user) {
-            if (Redis::exists('order.' . $this->user->id)
-                && (int) Redis::get('order.' . $this->user->id) === $this->ticket->id)
-            {
-                Redis::del('order.' . $this->user->id);
-                $this->ticket->update([
-                    'seat' => $this->ticket->seat + 1,
-                ]);
-            }
+            $this->restore();
+        } elseif ($this->user && Redis::exists('order.' . $this->user->id)) {
+            Redis::del('order.' . $this->user->id);
+        }
+    }
+
+    private function restore()
+    {
+        if (Redis::exists('order.' . $this->user->id)
+            && (int) Redis::get('order.' . $this->user->id) === $this->ticket->id)
+        {
+            Redis::del('order.' . $this->user->id);
+            $this->ticket->update([
+                'seat' => $this->ticket->seat + 1,
+            ]);
         }
     }
 }

@@ -4,11 +4,22 @@ namespace App\Http\Controllers\User;
 
 
 use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Services\DeleteProfileService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class ProfileController
 {
+    /**
+     * @var DeleteProfileService
+     */
+    private $service;
+
+    public function __construct(DeleteProfileService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index()
     {
         $user = Auth::user();
@@ -35,13 +46,16 @@ class ProfileController
         return redirect()->route('user.profile.index');
     }
 
-    public function remove()
-    {
-        
-    }
-
     public function destroy()
     {
+        $user = Auth::user();
 
+        $this->service->delete($user);
+
+        Auth::logout();
+
+        $user->delete();
+
+        return redirect()->route('main');
     }
 }

@@ -13,7 +13,12 @@
 
 use App\Http\Middleware\FilledProfile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+
+//DB::listen(function($query) {
+//    var_dump($query->sql, $query->bindings);
+//});
 
 Route::get('/', 'MainController@index')->name('main');
 
@@ -21,6 +26,10 @@ Auth::routes();
 
 Route::get('/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
 Route::get('/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+Route::get('/forgot', 'Auth\ForgotPasswordController@index')->name('password.forgot');
+Route::post('/forgot', 'Auth\ForgotPasswordController@sendEmail')->name('forgot.email');
+Route::get('/reset/{id}/{token}', 'Auth\ResetPasswordController@resetForm')->name('reset.form');
+Route::put('/reset/{id}', 'Auth\ResetPasswordController@reset')->name('password.reset');
 
 Route::group([
     'prefix' => 'tickets',
@@ -54,7 +63,6 @@ Route::group([
         Route::get('/', 'ProfileController@index')->name('index');
         Route::get('/edit', 'ProfileController@edit')->name('edit');
         Route::put('/update', 'ProfileController@update')->name('update');
-        Route::get('/remove', 'ProfileController@remove')->name('remove');
         Route::delete('/delete', 'ProfileController@destroy')->name('destroy');
     });
 });

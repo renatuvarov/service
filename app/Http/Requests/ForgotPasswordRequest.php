@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class ForgotPasswordRequest extends FormRequest
 {
     public function authorize()
     {
@@ -15,7 +15,6 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => 'required|string|email|exists:users',
-            'password' => 'required|string',
         ];
     }
 
@@ -26,9 +25,6 @@ class LoginRequest extends FormRequest
             'email.string' => 'Значение этого поля должно быть строкой',
             'email.email' => 'Некорректный адрес электронной почты',
             'email.exists' => 'Пользователь с таким email не найден',
-
-            'password.required' => 'Это поле обязательно для заполнения',
-            'password.string' => 'Значение этого поля должно быть строкой',
         ];
     }
 }

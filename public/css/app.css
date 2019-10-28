@@ -188,6 +188,16 @@ p.form-input {
   margin-top: 0;
 }
 
+.reset_password {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.reset_password-link {
+  font-size: 25px;
+  color: #0043ea;
+}
+
 .calendar {
   display: none;
   position: fixed;
@@ -852,7 +862,8 @@ tfoot th {
   font-weight: bold;
 }
 
-.profile-btn {
+.profile-btn,
+.delete_profile-btn {
   display: block;
   width: 30%;
   margin: 15px auto 0;
@@ -866,8 +877,16 @@ tfoot th {
   text-align: center;
 }
 
+.delete_profile-btn {
+  background-color: #e54900;
+}
+
 .profile-btn:hover {
   background-color: #2d72b3;
+}
+
+.delete_profile-btn:hover {
+  background-color: #ff5000;
 }
 
 @media (min-width: 700px) {
@@ -886,7 +905,8 @@ tfoot th {
   }
 }
 
-.delete_ticket {
+.delete_ticket,
+.delete_user {
   display: none;
   position: fixed;
   top: 0;
@@ -897,11 +917,13 @@ tfoot th {
   z-index: 10000;
 }
 
-.delete_ticket--active {
+.delete_ticket--active,
+.delete_user--active {
   display: block;
 }
 
-.delete_ticket_form {
+.delete_ticket_form,
+.delete_user_form {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -912,7 +934,8 @@ tfoot th {
   padding: 30px 40px;
 }
 
-.delete_ticket-close {
+.delete_ticket-close,
+.delete_user-close {
   position: absolute;
   top: 0;
   right: 0;
@@ -926,12 +949,15 @@ tfoot th {
   background-color: transparent;
 }
 
-.delete_ticket-close:hover {
+.delete_ticket-close:hover,
+.delete_user-close:hover {
   opacity: 1;
 }
 
 .delete_ticket-close:after,
-.delete_ticket-close:before {
+.delete_ticket-close:before,
+.delete_user-close:after,
+.delete_user-close:before {
   position: absolute;
   right: 5px;
   content: "";
@@ -941,15 +967,26 @@ tfoot th {
   transform: rotate(45deg);
 }
 
-.delete_ticket-close:after {
+.delete_ticket-close:after,
+.delete_user-close:after {
   transform: rotate(-45deg);
 }
 
-.delete_ticket_btn {
+.delete_ticket_btn,
+.delete_user_btn {
   width: 70%;
 }
 
-.delete_ticket-text {
+.delete_user-header {
+  text-align: center;
+  padding-bottom: 15px;
+  margin: 10px 0;
+  border-bottom: 1px solid #cdcdcd;
+  font-size: 30px;
+}
+
+.delete_ticket-text,
+.delete_user-text {
   text-align: center;
   font-size: 25px;
 }

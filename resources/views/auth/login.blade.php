@@ -10,8 +10,7 @@
                        class="form-input js-input"
                        name="email"
                        placeholder="Email"
-                       value="{{old('email')}}"
-                       autofocus>
+                       value="{{old('email')}}">
                 @error('email')
                     <p class="form-error_message">{{ $message }}</p>
                 @enderror
@@ -31,5 +30,6 @@
                 </div>
             </div>
         </form>
+        <p class="reset_password"><a href="{{ route('password.forgot') }}" class="reset_password-link">Забыли пароль?</a></p>
     </div>
 @endsection
