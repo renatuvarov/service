@@ -19,6 +19,6 @@ class RegisterService
 
         event(new Registered($user));
 
-        Auth::login($user);
+        return $user;
     }
 }

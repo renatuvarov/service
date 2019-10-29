@@ -504,6 +504,7 @@ tfoot th {
   padding: 30px 0;
   background-color: #fff;
   font-size: 16px;
+  overflow-x: auto;
 }
 
 .table-body tr {
@@ -905,7 +906,7 @@ tfoot th {
   }
 }
 
-.delete_ticket,
+.delete_item,
 .delete_user {
   display: none;
   position: fixed;
@@ -917,12 +918,12 @@ tfoot th {
   z-index: 10000;
 }
 
-.delete_ticket--active,
+.delete_item--active,
 .delete_user--active {
   display: block;
 }
 
-.delete_ticket_form,
+.delete_item_form,
 .delete_user_form {
   position: absolute;
   top: 50%;
@@ -934,7 +935,7 @@ tfoot th {
   padding: 30px 40px;
 }
 
-.delete_ticket-close,
+.delete_item-close,
 .delete_user-close {
   position: absolute;
   top: 0;
@@ -949,13 +950,13 @@ tfoot th {
   background-color: transparent;
 }
 
-.delete_ticket-close:hover,
+.delete_item-close:hover,
 .delete_user-close:hover {
   opacity: 1;
 }
 
-.delete_ticket-close:after,
-.delete_ticket-close:before,
+.delete_item-close:after,
+.delete_item-close:before,
 .delete_user-close:after,
 .delete_user-close:before {
   position: absolute;
@@ -967,12 +968,12 @@ tfoot th {
   transform: rotate(45deg);
 }
 
-.delete_ticket-close:after,
+.delete_item-close:after,
 .delete_user-close:after {
   transform: rotate(-45deg);
 }
 
-.delete_ticket_btn,
+.delete_item_btn,
 .delete_user_btn {
   width: 70%;
 }
@@ -985,7 +986,7 @@ tfoot th {
   font-size: 30px;
 }
 
-.delete_ticket-text,
+.delete_item-text,
 .delete_user-text {
   text-align: center;
   font-size: 25px;

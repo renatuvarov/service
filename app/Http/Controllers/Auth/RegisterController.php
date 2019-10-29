@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,7 +30,8 @@ class RegisterController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $this->service->createUser($request->all());
+        $user = $this->service->createUser($request->all());
+        Auth::login($user);
         return redirect()->route('user.home');
     }
 }

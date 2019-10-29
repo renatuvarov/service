@@ -1,6 +1,6 @@
 @extends('layouts.basic')
 
-@include('delete-ticket.delete-ticket')
+@include('delete.delete')
 
 @section('content')
     <div class="container">

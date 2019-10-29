@@ -338,24 +338,24 @@ require('./bootstrap');
     const table = document.querySelector('.table');
 
     if (table) {
-        const popup = document.querySelector('.js-delete_ticket');
+        const popup = document.querySelector('.js-delete_item');
 
         const removeTicket = e => {
             if (e.target.classList.contains('js-table-remove')) {
                 const url = e.target.dataset.url;
 
-                popup.classList.add('delete_ticket--active');
-                popup.querySelector('.js-delete_ticket_form').setAttribute('action', url);
+                popup.classList.add('delete_item--active');
+                popup.querySelector('.js-delete_item_form').setAttribute('action', url);
             }
         };
 
         const close = e => {
-            if (e.target.closest('.js-delete_ticket-close')
-                || e.target.classList.contains('js-delete_ticket')
+            if (e.target.closest('.js-delete_item-close')
+                || e.target.classList.contains('js-delete_item')
                 || e.key === "Escape"
                 || e.key === "Esc"
             ) {
-                popup.classList.remove('delete_ticket--active');
+                popup.classList.remove('delete_item--active');
             }
         };
 

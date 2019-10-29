@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container">
-        <h2 class="select_header">Регистрация</h2>
-        <form action="{{ route('register') }}" method="post" class="form">
+        <h2 class="select_header">Создать аккаунт</h2>
+        <form action="{{ route('admin.users.store') }}" method="post" class="form">
             @csrf
             <div class="form-input_group @error('email') is-invalid @enderror">
                 <input type="text"
@@ -35,7 +35,7 @@
             </div>
             <div class="form-input_group">
                 <div class="form-btn_wrapper">
-                    <button type="submit" class="btn btn--submit">Регистрация</button>
+                    <button type="submit" class="btn btn--submit">Создать</button>
                 </div>
             </div>
         </form>

@@ -85,7 +85,7 @@ Route::group([
     Route::get('/', 'MainController@index')->name('main');
     Route::resource('tickets', 'TicketsController');
     Route::get('tickets/remove/{ticket}', 'TicketsController@remove')->name('tickets.remove');
-    Route::resource('users', 'UsersController')->except(['edit', 'update']);
+    Route::resource('users', 'UsersController')->except(['edit', 'update', 'show']);
     Route::get('/email/{ticket}/{id?}', 'EmailController@newEmail')->name('email.new');
     Route::post('/email/{ticket}/{id?}', 'EmailController@sendEmail')->name('email.send');
 });

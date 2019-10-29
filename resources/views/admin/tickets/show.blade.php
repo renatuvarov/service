@@ -1,6 +1,6 @@
 @extends('layouts.basic')
 
-@include('delete-ticket.delete-ticket')
+@include('delete.delete')
 
 @section('content')
     <h2 class="select_header">Маршрут</h2>
