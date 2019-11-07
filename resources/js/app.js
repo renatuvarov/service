@@ -114,6 +114,7 @@ require('./bootstrap');
             const dateInstanse = new Date(date);
             const month = dateInstanse.getMonth() + 1 < 10 ? '0' + (dateInstanse.getMonth() + 1) : dateInstanse.getMonth() + 1;
             selectDate.textContent = `${dateInstanse.getDate()}.${month}.${dateInstanse.getFullYear()}`;
+            selectDate.style.color = '#000000';
             startingName = calendar.querySelector('.calendar-header[data-monthname="' + (dateInstanse.getMonth() + 1) + '"]');
             startingMonth = calendar.querySelector('.calendar-month_item[data-month="' + (dateInstanse.getMonth() + 1) + '"]');
             today = startingMonth.querySelector('.js-calendar-select[data-date="' + date + '"]');
@@ -159,7 +160,8 @@ require('./bootstrap');
             }
 
             search(target.value.toLowerCase()).then(value => {
-                if (value.length === 0) {
+                if (value.length === 0
+                        || (value.length === 1 && value[0].toLowerCase() === target.value.toLowerCase())) {
                     close();
                     return;
                 }
@@ -319,9 +321,20 @@ require('./bootstrap');
                 }
 
                 timeInput.textContent = hours.value + ':' + minutes.value;
+                timeInput.style.color = '#000000';
                 hiddenInput.value = hours.value + ':' + minutes.value + ':00';
                 time.classList.remove('time--active');
             });
+        };
+
+        const close = e => {
+            if (e.target.closest('.js-time-close')
+                || e.target.classList.contains('js-time')
+                || e.key === "Escape"
+                || e.key === "Esc"
+            ) {
+                time.classList.remove('time--active');
+            }
         };
 
         timeInput.addEventListener('click', () => time.classList.add('time--active'));
@@ -331,6 +344,8 @@ require('./bootstrap');
         minutes.addEventListener('change', onChange);
         groups.forEach(group => group.addEventListener('click', onBtnClick));
         setTimeBtn.addEventListener('click', onSetTime);
+        document.addEventListener('click', close);
+        document.addEventListener('keydown', close);
     }
 })();
 
@@ -390,5 +405,130 @@ require('./bootstrap');
         deleteBtn.addEventListener('click', deleteUser);
         document.addEventListener('click', close);
         document.addEventListener('keydown', close);
+    }
+})();
+
+(() => {
+    const showBtn = document.querySelector('.js-admin-search_show');
+    const search = document.querySelector('.js-admin-search_wrapper');
+
+    if (search && showBtn) {
+        showBtn.addEventListener('click', () => {
+            search.classList.add('admin-search_wrapper--active');
+            document.body.style.overflow = 'hidden';
+            search.style.overflowX = 'hidden';
+        });
+
+        search.querySelector('.js-admin-search_form').addEventListener('click', e => {
+            if (e.target.closest('.js-clear_value')) {
+                const parent = e.target.closest('.form-input_group');
+                const name = e.target.dataset.name;
+                document.querySelector(`input[name="${name}"]`).value = '';
+                const p = parent.querySelector('p.js-input');
+                if (p) {
+                    p.textContent = name === 'date' ? 'Дата' : 'Время';
+                    p.style.color = '#636363'
+                }
+            }
+        });
+
+        const close = e => {
+            if (e.target.closest('.js-admin-search_form_close')
+                || e.target.classList.contains('js-admin-search_wrapper')
+                || e.key === "Escape"
+                || e.key === "Esc"
+            ) {
+                search.classList.remove('admin-search_wrapper--active');
+                document.body.style.overflow = 'auto';
+                search.style.overflowX = 'auto';
+            }
+        };
+
+        document.addEventListener('click', close);
+        document.addEventListener('keydown', close);
+    }
+})();
+
+(() => {
+    const table = document.querySelector('.js-table_users');
+
+    if (table) {
+        const change = async url => {
+            const statusJson = await fetch(url, {
+                headers: {'X-Requested-With': 'XMLHttpRequest'}
+            });
+            return await statusJson.json();
+        };
+
+        const toggleStatus = e => {
+            if (e.target.classList.contains('js-toggle_status')) {
+                const url = e.target.dataset.link;
+                change(url).then(statusObject => {
+                    e.target.textContent = statusObject.status === 'waiting' ? 'Ожидание' : 'Прибыл';
+                });
+            }
+        };
+
+        table.addEventListener('click', toggleStatus);
+    }
+})();
+
+(() => {
+    const form = document.querySelector('.js-admin-search_form');
+    const hiddenCheckbox = document.querySelector('.js-checkbox-hidden');
+
+    if (form && hiddenCheckbox) {
+        form.addEventListener('click',  e => {
+            const parent = e.target.closest('.js-checkbox');
+
+            if (parent) {
+                parent.querySelector('.js-checkbox-btn').classList.toggle('checkbox-btn--active');
+                if  (hiddenCheckbox.checked) {
+                    hiddenCheckbox.removeAttribute('checked');
+                    return;
+                }
+                hiddenCheckbox.setAttribute('checked', true);
+            }
+        });
+    }
+})();
+
+(() => {
+    const select = document.querySelector('.js-select_element');
+
+    if (select) {
+        select.addEventListener('click', e => {
+            if (! e.currentTarget.classList.contains('select_element-list--active')) {
+                e.currentTarget.classList.add('select_element-list--active');
+            } else {
+                const target = e.target;
+                if (target.classList.contains('js-select_element-item')
+                    && ! target.classList.contains('select_element-current')) {
+                    const role = target.dataset.role;
+                    [...select.querySelectorAll('.js-select_element-item')].forEach(item => {
+                        item.classList.remove('select_element-current');
+                    });
+                    [...document.querySelectorAll('.js-select_element-hidden option')].forEach(item => {
+                        item.removeAttribute('checked');
+                    });
+                    select.querySelector(`.js-select_element-item[data-role="${role}"]`)
+                        .classList.add('select_element-current');
+                    document.querySelector(`.js-select_element-hidden option[data-role="${role}"]`)
+                        .setAttribute('checked', 'true');
+                    select.querySelector('.js-select_element-selected').textContent =
+                        select.querySelector(`.js-select_element-item[data-role="${role}"]`).textContent;
+                }
+
+                e.currentTarget.classList.remove('select_element-list--active');
+            }
+        });
+
+        document.addEventListener('click', e => {
+            const selectList = e.target.closest('.select_element-list--active');
+            const active = document.querySelector('.select_element-list--active');
+            if (! selectList && active) {
+                active.classList.remove('select_element-list--active');
+            }
+        });
     }
 })();

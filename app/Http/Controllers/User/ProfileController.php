@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Services\DeleteProfileService;
+use App\Http\Services\Elasticsearch\UsersService;
+use App\Http\Services\UpdateProfileService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -13,11 +15,16 @@ class ProfileController
     /**
      * @var DeleteProfileService
      */
-    private $service;
+    private $deleteService;
+    /**
+     * @var UpdateProfileService
+     */
+    private $updateService;
 
-    public function __construct(DeleteProfileService $service)
+    public function __construct(DeleteProfileService $deleteService, UpdateProfileService $updateService)
     {
-        $this->service = $service;
+        $this->deleteService = $deleteService;
+        $this->updateService = $updateService;
     }
 
     public function index()
@@ -35,27 +42,14 @@ class ProfileController
     public function update(UpdateProfileRequest $request)
     {
         $user = Auth::user();
-
-        $user->update([
-            'name' => is_null($request->input('name')) ? null : Str::ucfirst(Str::lower($request->input('name'))),
-            'surname' => is_null($request->input('surname')) ? null : Str::ucfirst(Str::lower($request->input('surname'))),
-            'patronymic' => is_null($request->input('patronymic')) ? null : Str::ucfirst(Str::lower($request->input('patronymic'))),
-            'phone' => is_null($request->input('phone')) ? null : '+7' . $request->input('phone'),
-        ]);
-
+        $this->updateService->update($user, $request);
         return redirect()->route('user.profile.index');
     }
 
     public function destroy()
     {
         $user = Auth::user();
-
-        $this->service->delete($user);
-
-        Auth::logout();
-
-        $user->delete();
-
+        $this->deleteService->delete($user);
         return redirect()->route('main');
     }
 }

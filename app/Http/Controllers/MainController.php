@@ -2,25 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\DateTimeService;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Services\CalendarService;
 
 class MainController extends Controller
 {
     private $service;
 
-    public function __construct(DateTimeService $service)
+    public function __construct(CalendarService $service)
     {
         $this->service = $service;
     }
 
     public function index()
     {
-        $months = $this->service->allMonth();
-        $monthNames = $this->service->monthsFromCurrent();
-        $currentDay = Carbon::now();
-        $user = Auth::user();
-        return view('main', compact('user', 'months', 'currentDay', 'monthNames'));
+        $calendar = $this->service->calendar();
+        return view('main', compact('calendar'));
     }
 }

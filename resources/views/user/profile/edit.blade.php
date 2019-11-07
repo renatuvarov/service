@@ -12,7 +12,6 @@
                        class="form-input js-input"
                        placeholder="Имя"
                        value="{{ old('name', $user->name ?? '') }}">
-                </ul>
                 @error('name')
                     <p class="form-error_message">{{ $message }}</p>
                 @enderror
@@ -23,7 +22,6 @@
                        class="form-input js-input"
                        placeholder="Фамилия"
                        value="{{ old('surname', $user->surname ?? '') }}">
-                </ul>
                 @error('surname')
                     <p class="form-error_message">{{ $message }}</p>
                 @enderror
@@ -34,7 +32,6 @@
                        class="form-input js-input"
                        placeholder="Отчество"
                        value="{{ old('patronymic', $user->patronymic ?? '') }}">
-                </ul>
                 @error('patronymic')
                     <p class="form-error_message">{{ $message }}</p>
                 @enderror
@@ -45,7 +42,6 @@
                        class="form-input js-input"
                        placeholder="Телефон без +7 или 8 в начале"
                        value="{{ old('phone', substr($user->phone, 2) ?? '') }}">
-                </ul>
                 @error('phone')
                     <p class="form-error_message">{{ $message }}</p>
                 @enderror

@@ -5,41 +5,49 @@ namespace App\Http\Controllers\Admin;
 use App\Entity\Ticket;
 use App\Events\TicketDeleted;
 use App\Events\TicketUpdated;
+use App\Http\Requests\AdminTicketsSearchRequest;
 use App\Http\Requests\CreateTicketRequest;
 use App\Http\Requests\TicketUpdatedRequest;
-use App\Http\Services\DateTimeService;
+use App\Http\Requests\TicketUsersSearchRequest;
+use App\Http\Services\AdminSearchService;
+use App\Http\Services\CalendarService;
 use App\Http\Services\FindCitiesService;
-use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class TicketsController extends Controller
 {
     /**
-     * @var DateTimeService
+     * @var CalendarService
      */
-    private $dateTimeService;
+    private $calendar;
 
     private $search;
+    /**
+     * @var AdminSearchService
+     */
+    private $adminSearchService;
 
-    public function __construct(DateTimeService $dateTimeService, FindCitiesService $search)
+    public function __construct(CalendarService $calendar, FindCitiesService $search, AdminSearchService $adminSearchService)
     {
-        $this->dateTimeService = $dateTimeService;
+        $this->calendar = $calendar;
         $this->search = $search;
+        $this->adminSearchService = $adminSearchService;
     }
 
-    public function index()
+    public function index(AdminTicketsSearchRequest $request)
     {
-        $tickets = Ticket::with('cities')->paginate(4);
-        return view('admin.tickets.index', compact('tickets'));
+        $tickets = $this->adminSearchService
+            ->ticketsWithQuery(Ticket::with('cities'), $request->all())
+            ->paginate(4);
+        $calendar = $this->calendar->calendar();
+        return view('admin.tickets.index', compact('tickets', 'calendar'));
     }
 
     public function create()
     {
-        $months = $this->dateTimeService->allMonth();
-        $monthNames = $this->dateTimeService->monthsFromCurrent();
-        $currentDay = Carbon::now();
-        return view('admin.tickets.create', compact('months', 'monthNames', 'currentDay'));
+        $calendar = $this->calendar->calendar();
+        return view('admin.tickets.create', compact('calendar'));
     }
 
     public function store(CreateTicketRequest $request)
@@ -60,31 +68,38 @@ class TicketsController extends Controller
         $ticket->cities()->attach($cities['departure_point']);
         $ticket->cities()->attach($cities['arrival_point']);
 
+        $this->adminSearchService->index($ticket);
+
         return redirect()->route('admin.tickets.index');
     }
 
-    public function show(Ticket $ticket)
+    public function show(TicketUsersSearchRequest $request, Ticket $ticket)
     {
-        $users = $ticket->users()->withPivot('name', 'surname', 'patronymic', 'phone')->paginate(1);
-        $user = Auth::user();
-        return view('admin.tickets.show', compact('user', 'users', 'ticket'));
+        $users = $this->adminSearchService->usersWithQuery($ticket->users(), $request->all())
+            ->withPivot('name', 'surname', 'patronymic', 'phone', 'status')
+            ->paginate(1);
+        return view('admin.tickets.show', compact('users', 'ticket'));
     }
 
     public function edit(Ticket $ticket)
     {
-        $user = Auth::user();
-        return view('admin.tickets.edit', compact('ticket', 'user'));
+        return view('admin.tickets.edit', compact('ticket'));
     }
 
     public function update(TicketUpdatedRequest $request)
     {
-        $ticket = Ticket::with('cities')->where('id', $request->route('ticket'))->first();
+        $ticket = Ticket::with('cities')
+            ->where('id', $request->route('ticket'))
+            ->first();
         $oldTime = $ticket->time;
+
         $users = $ticket->users()->pluck('id')->toArray();
 
         $ticket->update([
             'time' => $request->input('time')
         ]);
+
+        $this->adminSearchService->update($ticket);
 
         event(new TicketUpdated($users, $ticket, $oldTime));
 
@@ -97,6 +112,7 @@ class TicketsController extends Controller
         $users = $ticket->users()->pluck('id')->toArray();
 
         $ticket->delete();
+        $this->adminSearchService->delete($ticket);
 
         $ticketArray = $ticket->toArray();
         $ticketArray['departure_point'] = $ticket->departurePoint();

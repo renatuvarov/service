@@ -74,6 +74,7 @@ Route::group([
     'middleware' => ['ajax'],
 ], function () {
     Route::get('/city/{name}', 'CityController@find')->name('city');
+    Route::get('/status/{id}/{ticket}', 'StatusController@toggleStatus')->name('status');
 });
 
 Route::group([
@@ -83,9 +84,11 @@ Route::group([
     'middleware' => ['can:admin-panel',]
 ], function () {
     Route::get('/', 'MainController@index')->name('main');
-    Route::resource('tickets', 'TicketsController');
-    Route::get('tickets/remove/{ticket}', 'TicketsController@remove')->name('tickets.remove');
-    Route::resource('users', 'UsersController')->except(['edit', 'update', 'show']);
+    Route::resource('tickets', 'TicketsController')->except(['index', 'show']);
+    Route::match(['get', 'post'], '/tickets/list', 'TicketsController@index')->name('tickets.index');
+    Route::match(['get', 'post'], '/tickets/{ticket}', 'TicketsController@show')->name('tickets.show');
+    Route::resource('users', 'UsersController')->except(['index', 'edit', 'update', 'show']);
+    Route::match(['get', 'post'], '/users/list', 'UsersController@index')->name('users.index');
     Route::get('/email/{ticket}/{id?}', 'EmailController@newEmail')->name('email.new');
     Route::post('/email/{ticket}/{id?}', 'EmailController@sendEmail')->name('email.send');
 });

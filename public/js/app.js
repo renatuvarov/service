@@ -982,6 +982,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
       var dateInstanse = new Date(date);
       var month = dateInstanse.getMonth() + 1 < 10 ? '0' + (dateInstanse.getMonth() + 1) : dateInstanse.getMonth() + 1;
       selectDate.textContent = "".concat(dateInstanse.getDate(), ".").concat(month, ".").concat(dateInstanse.getFullYear());
+      selectDate.style.color = '#000000';
       startingName = calendar.querySelector('.calendar-header[data-monthname="' + (dateInstanse.getMonth() + 1) + '"]');
       startingMonth = calendar.querySelector('.calendar-month_item[data-month="' + (dateInstanse.getMonth() + 1) + '"]');
       today = startingMonth.querySelector('.js-calendar-select[data-date="' + date + '"]');
@@ -1058,7 +1059,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
       }
 
       search(target.value.toLowerCase()).then(function (value) {
-        if (value.length === 0) {
+        if (value.length === 0 || value.length === 1 && value[0].toLowerCase() === target.value.toLowerCase()) {
           close();
           return;
         }
@@ -1219,9 +1220,16 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
         }
 
         timeInput.textContent = hours.value + ':' + minutes.value;
+        timeInput.style.color = '#000000';
         hiddenInput.value = hours.value + ':' + minutes.value + ':00';
         time.classList.remove('time--active');
       });
+    };
+
+    var close = function close(e) {
+      if (e.target.closest('.js-time-close') || e.target.classList.contains('js-time') || e.key === "Escape" || e.key === "Esc") {
+        time.classList.remove('time--active');
+      }
     };
 
     timeInput.addEventListener('click', function () {
@@ -1235,6 +1243,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
       return group.addEventListener('click', onBtnClick);
     });
     setTimeBtn.addEventListener('click', onSetTime);
+    document.addEventListener('click', close);
+    document.addEventListener('keydown', close);
   }
 })();
 
@@ -1285,6 +1295,161 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
     deleteBtn.addEventListener('click', deleteUser);
     document.addEventListener('click', close);
     document.addEventListener('keydown', close);
+  }
+})();
+
+(function () {
+  var showBtn = document.querySelector('.js-admin-search_show');
+  var search = document.querySelector('.js-admin-search_wrapper');
+
+  if (search && showBtn) {
+    showBtn.addEventListener('click', function () {
+      search.classList.add('admin-search_wrapper--active');
+      document.body.style.overflow = 'hidden';
+      search.style.overflowX = 'hidden';
+    });
+    search.querySelector('.js-admin-search_form').addEventListener('click', function (e) {
+      if (e.target.closest('.js-clear_value')) {
+        var parent = e.target.closest('.form-input_group');
+        var name = e.target.dataset.name;
+        document.querySelector("input[name=\"".concat(name, "\"]")).value = '';
+        var p = parent.querySelector('p.js-input');
+
+        if (p) {
+          p.textContent = name === 'date' ? 'Дата' : 'Время';
+          p.style.color = '#636363';
+        }
+      }
+    });
+
+    var close = function close(e) {
+      if (e.target.closest('.js-admin-search_form_close') || e.target.classList.contains('js-admin-search_wrapper') || e.key === "Escape" || e.key === "Esc") {
+        search.classList.remove('admin-search_wrapper--active');
+        document.body.style.overflow = 'auto';
+        search.style.overflowX = 'auto';
+      }
+    };
+
+    document.addEventListener('click', close);
+    document.addEventListener('keydown', close);
+  }
+})();
+
+(function () {
+  var table = document.querySelector('.js-table_users');
+
+  if (table) {
+    var change =
+    /*#__PURE__*/
+    function () {
+      var _ref2 = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(url) {
+        var statusJson;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return fetch(url, {
+                  headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                  }
+                });
+
+              case 2:
+                statusJson = _context2.sent;
+                _context2.next = 5;
+                return statusJson.json();
+
+              case 5:
+                return _context2.abrupt("return", _context2.sent);
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function change(_x2) {
+        return _ref2.apply(this, arguments);
+      };
+    }();
+
+    var toggleStatus = function toggleStatus(e) {
+      if (e.target.classList.contains('js-toggle_status')) {
+        var url = e.target.dataset.link;
+        change(url).then(function (statusObject) {
+          e.target.textContent = statusObject.status === 'waiting' ? 'Ожидание' : 'Прибыл';
+        });
+      }
+    };
+
+    table.addEventListener('click', toggleStatus);
+  }
+})();
+
+(function () {
+  var form = document.querySelector('.js-admin-search_form');
+  var hiddenCheckbox = document.querySelector('.js-checkbox-hidden');
+
+  if (form && hiddenCheckbox) {
+    form.addEventListener('click', function (e) {
+      var parent = e.target.closest('.js-checkbox');
+
+      if (parent) {
+        parent.querySelector('.js-checkbox-btn').classList.toggle('checkbox-btn--active');
+
+        if (hiddenCheckbox.checked) {
+          hiddenCheckbox.removeAttribute('checked');
+          return;
+        }
+
+        hiddenCheckbox.setAttribute('checked', true);
+      }
+    });
+  }
+})();
+
+(function () {
+  var select = document.querySelector('.js-select_element');
+
+  if (select) {
+    select.addEventListener('click', function (e) {
+      if (!e.currentTarget.classList.contains('select_element-list--active')) {
+        e.currentTarget.classList.add('select_element-list--active');
+      } else {
+        var target = e.target;
+
+        if (target.classList.contains('js-select_element-item') && !target.classList.contains('select_element-current')) {
+          var role = target.dataset.role;
+
+          _toConsumableArray(select.querySelectorAll('.js-select_element-item')).forEach(function (item) {
+            item.classList.remove('select_element-current');
+          });
+
+          _toConsumableArray(document.querySelectorAll('.js-select_element-hidden option')).forEach(function (item) {
+            item.removeAttribute('checked');
+          });
+
+          select.querySelector(".js-select_element-item[data-role=\"".concat(role, "\"]")).classList.add('select_element-current');
+          document.querySelector(".js-select_element-hidden option[data-role=\"".concat(role, "\"]")).setAttribute('checked', 'true');
+          select.querySelector('.js-select_element-selected').textContent = select.querySelector(".js-select_element-item[data-role=\"".concat(role, "\"]")).textContent;
+        }
+
+        e.currentTarget.classList.remove('select_element-list--active');
+      }
+    });
+    document.addEventListener('click', function (e) {
+      var selectList = e.target.closest('.select_element-list--active');
+      var active = document.querySelector('.select_element-list--active');
+
+      if (!selectList && active) {
+        active.classList.remove('select_element-list--active');
+      }
+    });
   }
 })();
 

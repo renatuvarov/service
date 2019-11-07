@@ -1,7 +1,6 @@
 @extends('layouts.basic')
 
 @include('calendar.calendar')
-
 @include('time.time')
 
 @section('content')
@@ -10,13 +9,13 @@
         <form action="{{ route('admin.tickets.store') }}" method="post" class="form">
             @csrf
             <div class="form-input_group @error('date') is-invalid @enderror">
-                <p class="form-input js-input js-select_date">{{ date('d.m.Y', strtotime(old('date', $currentDay->format('d.m.Y')))) }}</p>
+                <p class="form-input js-input js-select_date">{{ date('d.m.Y', strtotime(old('date', $calendar->currentDay->format('d.m.Y')))) }}</p>
                 @error('date')
                     <p class="form-error_message">{{ $message }}</p>
                 @enderror
             </div>
             <input type="hidden"
-                   value="{{ old('date', $currentDay->format('Y-m-d')) }}"
+                   value="{{ old('date', $calendar->currentDay->format('Y-m-d')) }}"
                    class="js-form-hidden_input"
                    name="date">
             <div class="form-input_group js-form-input_group @error('departure_point') is-invalid @enderror">

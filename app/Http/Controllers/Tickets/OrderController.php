@@ -87,6 +87,7 @@ class OrderController extends Controller
             'surname' => $request->input('surname'),
             'patronymic' => $request->input('patronymic'),
             'phone' => $request->input('phone'),
+            'status' => 'waiting',
         ]);
 
         return redirect()->route('user.home');

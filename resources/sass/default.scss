@@ -58,6 +58,10 @@ li {
   transition: 0.3s;
 }
 
+.btn:hover {
+  background-color: #2e87cf;
+}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;

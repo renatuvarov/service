@@ -1,8 +1,8 @@
 <div class="calendar js-calendar">
     <div class="calendar-body">
         <div class="calendar-month_name_list">
-            @foreach($months as $key => $month)
-                <h3 class="calendar-header js-calendar_header" data-monthname="{{ $key }}">{{ $monthNames[$key] }} {{ date('Y') }}</h3>
+            @foreach($calendar->months as $key => $month)
+                <h3 class="calendar-header js-calendar_header" data-monthname="{{ $key }}">{{ $calendar->monthNames[$key] }} {{ date('Y') }}</h3>
             @endforeach
             <button data-direction="prev" class="calendar-select_month_btn calendar-select_month_btn--prev js-calendar-select_month_btn"></button>
             <button data-direction="next" class="calendar-select_month_btn calendar-select_month_btn--next js-calendar-select_month_btn"></button>
@@ -18,16 +18,16 @@
 
         </ul>
         <ul class="calendar-months_list">
-            @foreach($months as $key => $month)
+            @foreach($calendar->months as $key => $month)
                 <li class="calendar-month_item js-calendar-month_item" data-month="{{ $key }}">
                     @foreach($month as $week)
                         <ul class="calendar-week">
                             @foreach($week as $day)
                                 <li class="calendar-day js-calendar-day">
-                                    @if($currentDay->format('Y-m-d') <= $day->format('Y-m-d') && $currentDay->format('Y') == $day->format('Y'))
+                                    @if($calendar->currentDay->format('Y-m-d') <= $day->format('Y-m-d') && $calendar->currentDay->format('Y') == $day->format('Y'))
                                         <button type="button"
                                                 class="calendar-select{{
-                                            $currentDay->format('Y-m-d') == $day->format('Y-m-d') ? ' calendar-selected' : ''
+                                            $calendar->currentDay->format('Y-m-d') == $day->format('Y-m-d') ? ' calendar-selected' : ''
                                         }}{{
                                             $key == $day->format('m') ? '' : ' calendar-next'
                                         }} js-calendar-select"

@@ -6,14 +6,14 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use DateTime;
 
-class DateTimeService
+class CalendarService
 {
     public function __construct()
     {
         setlocale(LC_TIME, 'ru_RU.UTF-8');
     }
 
-    public function months()
+    private function months()
     {
         return [
             1=>"Январь",
@@ -31,14 +31,14 @@ class DateTimeService
         ];
     }
 
-    public function monthsFromCurrent()
+    private function monthsFromCurrent()
     {
         return array_filter($this->months(), function ($key) {
             return $key >= (int) date('m');
         }, ARRAY_FILTER_USE_KEY);
     }
 
-    public function allMonth()
+    private function allMonths()
     {
         $months = [];
         $keys = range(Carbon::now()->month, 12);
@@ -56,5 +56,16 @@ class DateTimeService
         $end = Carbon::createFromDate(null, $currentMonth, 1)->endOfMonth()->modify('sunday this week');
         $period = CarbonPeriod::create($start, $end)->toArray();
         return array_chunk($period, 7);
+    }
+
+    public function calendar()
+    {
+        $calendar = new \stdClass;
+
+        $calendar->months = $this->allMonths();
+        $calendar->monthNames = $this->monthsFromCurrent();
+        $calendar->currentDay = Carbon::now();
+
+        return $calendar;
     }
 }

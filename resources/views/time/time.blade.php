@@ -1,4 +1,4 @@
-<div class="time">
+<div class="time js-time">
     <div class="time-wrapper">
         <h3 class="select_header">Выбрать время</h3>
         <div class="time-input_wrapper">

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\AdminUsersSearchRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Services\DeleteProfileService;
+use App\Http\Services\Elasticsearch\UsersService;
 use App\Http\Services\RegisterService;
 use App\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redis;
 
 class UsersController extends Controller
 {
@@ -16,17 +17,31 @@ class UsersController extends Controller
      * @var RegisterService
      */
     private $service;
+    /**
+     * @var UsersService
+     */
+    private $usersService;
+    /**
+     * @var DeleteProfileService
+     */
+    private $deleteService;
 
-    public function __construct(RegisterService $service)
-    {
+    public function __construct(
+        RegisterService $service,
+        UsersService $usersService,
+        DeleteProfileService $deleteService
+    ) {
         $this->service = $service;
+        $this->usersService = $usersService;
+        $this->deleteService = $deleteService;
     }
 
-    public function index()
+    public function index(AdminUsersSearchRequest $request)
     {
         $users = User::orderBy('created_at', 'desc')->paginate(2);
         $id = Auth::user()->id;
-        return view('admin.users.index', compact('users', 'id'));
+        $roles = User::roles();
+        return view('admin.users.index', compact('users', 'id', 'roles'));
     }
 
     public function create()
@@ -43,13 +58,7 @@ class UsersController extends Controller
     public function destroy($user)
     {
         $user = User::findOrFail($user);
-
-        if (Redis::exists('order.' . $user->id)) {
-            Redis::del('order.' . $user->id);
-        }
-
-        $user->delete();
-
+        $this->deleteService->delete($user);
         return redirect()->route('admin.users.index');
     }
 }
