@@ -509,12 +509,12 @@ require('./bootstrap');
                         item.classList.remove('select_element-current');
                     });
                     [...document.querySelectorAll('.js-select_element-hidden option')].forEach(item => {
-                        item.removeAttribute('checked');
+                        item.removeAttribute('selected');
                     });
                     select.querySelector(`.js-select_element-item[data-role="${role}"]`)
                         .classList.add('select_element-current');
                     document.querySelector(`.js-select_element-hidden option[data-role="${role}"]`)
-                        .setAttribute('checked', 'true');
+                        .setAttribute('selected', true);
                     select.querySelector('.js-select_element-selected').textContent =
                         select.querySelector(`.js-select_element-item[data-role="${role}"]`).textContent;
                 }

@@ -38,9 +38,16 @@ class UsersController extends Controller
 
     public function index(AdminUsersSearchRequest $request)
     {
-        $users = User::orderBy('created_at', 'desc')->paginate(2);
+        $query = User::orderBy('created_at', 'desc');
+
+        if (! empty($request->all())) {
+            $query->whereIn('id', $this->usersService->get($request->all()));
+        }
+
+        $users = $query->paginate(2);
         $id = Auth::user()->id;
         $roles = User::roles();
+
         return view('admin.users.index', compact('users', 'id', 'roles'));
     }
 

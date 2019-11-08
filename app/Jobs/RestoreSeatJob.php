@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Entity\Ticket;
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -24,21 +26,24 @@ class RestoreSeatJob implements ShouldQueue
 
     public function handle()
     {
-        if ($this->ticket && $this->user) {
-            $this->restore();
-        } elseif ($this->user && Redis::exists('order.' . $this->user->id)) {
-            Redis::del('order.' . $this->user->id);
+        $ticket = Ticket::find($this->ticket);
+        $user = User::find($this->user);
+
+        if ($ticket && $user) {
+            $this->restore($ticket, $user);
+        } elseif ($user && Redis::exists('order.' . $user->id)) {
+            Redis::del('order.' . $user->id);
         }
     }
 
-    private function restore()
+    private function restore($ticket, $user)
     {
-        if (Redis::exists('order.' . $this->user->id)
-            && (int) Redis::get('order.' . $this->user->id) === $this->ticket->id)
+        if (Redis::exists('order.' . $user->id)
+            && (int) Redis::get('order.' . $user->id) === $ticket->id)
         {
-            Redis::del('order.' . $this->user->id);
-            $this->ticket->update([
-                'seat' => $this->ticket->seat + 1,
+            Redis::del('order.' . $user->id);
+            $ticket->update([
+                'seat' => $ticket->seat + 1,
             ]);
         }
     }

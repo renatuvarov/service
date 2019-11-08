@@ -60,7 +60,7 @@ class OrderController extends Controller
                 'seat' => $ticket->seat - 1,
             ]);
 
-            $job = (new RestoreSeatJob($ticket, $user))
+            $job = (new RestoreSeatJob($ticket->id, $user->id))
                 ->delay(Carbon::now()->addSeconds(20));
 
             $this->dispatch($job);

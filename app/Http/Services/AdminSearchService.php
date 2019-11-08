@@ -61,19 +61,4 @@ class AdminSearchService
 
         return $query;
     }
-
-    public function index(Ticket $ticket)
-    {
-        $this->service->index($ticket);
-    }
-
-    public function update(Ticket $ticket)
-    {
-        $this->service->update($ticket);
-    }
-
-    public function delete(Ticket $ticket)
-    {
-        $this->service->delete($ticket);
-    }
 }

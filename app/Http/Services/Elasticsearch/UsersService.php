@@ -217,7 +217,6 @@ class UsersService
                 ],
             ],
         ]);
-
         return array_column($result['hits']['hits'], '_id');
     }
 }

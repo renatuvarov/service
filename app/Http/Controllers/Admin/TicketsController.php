@@ -11,9 +11,9 @@ use App\Http\Requests\TicketUpdatedRequest;
 use App\Http\Requests\TicketUsersSearchRequest;
 use App\Http\Services\AdminSearchService;
 use App\Http\Services\CalendarService;
-use App\Http\Services\FindCitiesService;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Services\ManageTicketsService;
+use App\Jobs\RemoveOldTicket;
 
 class TicketsController extends Controller
 {
@@ -21,18 +21,20 @@ class TicketsController extends Controller
      * @var CalendarService
      */
     private $calendar;
-
-    private $search;
     /**
      * @var AdminSearchService
      */
     private $adminSearchService;
+    /**
+     * @var ManageTicketsService
+     */
+    private $manageTicketsService;
 
-    public function __construct(CalendarService $calendar, FindCitiesService $search, AdminSearchService $adminSearchService)
+    public function __construct(CalendarService $calendar, AdminSearchService $adminSearchService, ManageTicketsService $manageTicketsService)
     {
         $this->calendar = $calendar;
-        $this->search = $search;
         $this->adminSearchService = $adminSearchService;
+        $this->manageTicketsService = $manageTicketsService;
     }
 
     public function index(AdminTicketsSearchRequest $request)
@@ -52,23 +54,10 @@ class TicketsController extends Controller
 
     public function store(CreateTicketRequest $request)
     {
-        $cities = $this->search->findCity(
-            $request->input('departure_point'),
-            $request->input('arrival_point')
-        );
+        $ticket = $this->manageTicketsService->create($request->all());
 
-        $ticket = Ticket::create([
-            'departure_point' => $cities['departure_point']->id,
-            'arrival_point' => $cities['arrival_point']->id,
-            'date' => $request->input('date'),
-            'time' => $request->input('time'),
-            'seat' => $request->input('seats'),
-        ]);
-
-        $ticket->cities()->attach($cities['departure_point']);
-        $ticket->cities()->attach($cities['arrival_point']);
-
-        $this->adminSearchService->index($ticket);
+        $delay = strtotime($request->input('date') . ' ' . $request->input('time')) - time();
+        dispatch((new RemoveOldTicket($ticket->id))->delay($delay));
 
         return redirect()->route('admin.tickets.index');
     }
@@ -92,14 +81,9 @@ class TicketsController extends Controller
             ->where('id', $request->route('ticket'))
             ->first();
         $oldTime = $ticket->time;
-
         $users = $ticket->users()->pluck('id')->toArray();
-
-        $ticket->update([
-            'time' => $request->input('time')
-        ]);
-
-        $this->adminSearchService->update($ticket);
+        $ticket->update(['time' => $request->input('time')]);
+        $this->manageTicketsService->update($ticket);
 
         event(new TicketUpdated($users, $ticket, $oldTime));
 
@@ -111,15 +95,8 @@ class TicketsController extends Controller
         $ticket = Ticket::with('cities')->where('id', $ticket)->first();
         $users = $ticket->users()->pluck('id')->toArray();
 
-        $ticket->delete();
-        $this->adminSearchService->delete($ticket);
+        event(new TicketDeleted($this->manageTicketsService->delete($ticket), $users));
 
-        $ticketArray = $ticket->toArray();
-        $ticketArray['departure_point'] = $ticket->departurePoint();
-        $ticketArray['arrival_point'] = $ticket->arrivalPoint();
-
-        event(new TicketDeleted($ticketArray, $users));
-
-        return redirect()->route('admin.main');
+        return redirect()->route('admin.tickets.index');
     }
 }

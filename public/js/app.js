@@ -1431,11 +1431,11 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
           });
 
           _toConsumableArray(document.querySelectorAll('.js-select_element-hidden option')).forEach(function (item) {
-            item.removeAttribute('checked');
+            item.removeAttribute('selected');
           });
 
           select.querySelector(".js-select_element-item[data-role=\"".concat(role, "\"]")).classList.add('select_element-current');
-          document.querySelector(".js-select_element-hidden option[data-role=\"".concat(role, "\"]")).setAttribute('checked', 'true');
+          document.querySelector(".js-select_element-hidden option[data-role=\"".concat(role, "\"]")).setAttribute('selected', true);
           select.querySelector('.js-select_element-selected').textContent = select.querySelector(".js-select_element-item[data-role=\"".concat(role, "\"]")).textContent;
         }
 

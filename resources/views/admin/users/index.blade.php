@@ -100,7 +100,7 @@
                         @endforeach
                     </ul>
                     <select name="role" class="select_element-hidden js-select_element-hidden">
-                        <option value="" data-role="all"></option>
+                        <option value="" data-role="all" selected></option>
                         @foreach($roles as $role)
                             <option value="{{ $role }}" data-role="{{ $role }}"></option>
                         @endforeach
